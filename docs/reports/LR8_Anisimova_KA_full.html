@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title>LR8_Anisimova_KA</title>
+  <style>
+    body { font-family: "Times New Roman", serif; font-size: 14pt; line-height: 1.35; margin: 2cm; }
+    h1, h2, h3 { margin: 0.6em 0 0.35em; }
+    h1 { font-size: 16pt; text-align: center; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 14pt; }
+    p { margin: 0.25em 0; text-align: justify; }
+    .center { text-align: center; }
+    .spacer { margin-top: 1.2em; }
+    pre { font-family: "Courier New", monospace; font-size: 10.5pt; white-space: pre-wrap; border: 1px solid #999; padding: 8px; }
+    ul { margin: 0.2em 0 0.2em 1.2em; }
+    ol { margin: 0.2em 0 0.2em 1.2em; }
+  </style>
+</head>
+<body>
+  <p class="center"><b>МИНОБРНАУКИ РОССИИ</b></p>
+  <p class="center">Федеральное государственное бюджетное образовательное учреждение высшего образования</p>
+  <p class="center">"Тульский государственный университет"</p>
+  <p class="center spacer">Кафедра вычислительной техники</p>
+  <p class="center spacer">Процессы обеспечения качества программного обеспечения</p>
+  <h1 class="spacer">Лабораторная работа №8</h1>
+  <h1>Приемочное тестирование и BDD (Behavior-Driven Development)</h1>
+
+  <p class="spacer">Выполнил: студент гр. 220621, Анисимова К.А.</p>
+  <p>Проверил: Пестин М.С.</p>
+  <p class="center spacer">Тула, 2026 г.</p>
+
+  <h2>Цель работы</h2>
+  <p>Изучить подход приемочного тестирования и BDD, научиться описывать требования на языке Gherkin и автоматизировать эти сценарии для веб-приложения по теме распознавания эмоционального состояния человека.</p>
+
+  <h2>Задание на лабораторную работу</h2>
+  <p>На базе приложения из ЛР7 необходимо подготовить 3-5 приемочных сценариев на Gherkin, покрыть позитивные и негативные пути, обязательно использовать минимум один Scenario Outline с Examples, реализовать Step Definitions и добиться успешного прохождения тестов.</p>
+
+  <h2>1. Теоретическая часть</h2>
+  <h3>1.1. Приемочное тестирование</h3>
+  <p>Приемочное тестирование - это проверка того, что система действительно решает задачу пользователя и соответствует бизнес-требованиям. По сути, это ответ на вопрос: готова ли система к передаче заказчику.</p>
+  <p>Ключевой элемент приемки - критерии приемки (Acceptance Criteria). Именно они задают, какое поведение считается корректным.</p>
+
+  <h3>1.2. Подход BDD</h3>
+  <p>BDD развивает TDD, но делает акцент не на внутренней реализации, а на поведении системы. Сценарии формулируются в терминах, понятных и разработчику, и тестировщику, и заказчику.</p>
+
+  <h3>1.3. Язык Gherkin</h3>
+  <p>Gherkin используется для записи приемочных сценариев в структурированном виде. Основные ключевые слова: Feature, Scenario, Given, When, Then, And, Scenario Outline, Examples.</p>
+
+  <h3>1.4. Выбор инструмента</h3>
+  <p>Для текущего проекта выбран Cucumber.js в связке с Playwright. Этот выбор логичен, потому что приложение уже написано на Node.js, а Playwright использовался в ЛР7.</p>
+
+  <h2>2. Практическая часть</h2>
+  <h3>2.1. Кратко о системе</h3>
+  <p>Тема варианта: программное обеспечение для распознавания эмоционального состояния человека с помощью моделей ИИ.</p>
+  <p>В учебной версии распознавание имитируется по имени файла изображения: happy/joy - радость, sad - грусть, angry/mad - злость, иначе - нейтрально.</p>
+  <p>Кроме распознавания реализованы регистрация, вход, роли user/admin и смена роли администратором.</p>
+
+  <h3>2.2. Набор BDD-сценариев</h3>
+  <ol>
+    <li>Успешная авторизация существующего пользователя.</li>
+    <li>Негативный вход с неверным паролем.</li>
+    <li>Регистрация нового пользователя и последующий вход.</li>
+    <li>Смена роли пользователя администратором.</li>
+    <li>Scenario Outline для проверки эмоции на нескольких файлах.</li>
+  </ol>
+  <p>Требования методички выполнены: есть позитивные и негативные пути, и есть параметризованный сценарий с таблицей Examples.</p>
+
+  <h3>2.3. Автоматизация сценариев</h3>
+  <p>BDD-слой реализован в следующих файлах:</p>
+  <ul>
+    <li>features/*.feature - сценарии на Gherkin;</li>
+    <li>features/step-definitions/common.steps.js - реализация шагов;</li>
+    <li>features/support/hooks.js и features/support/world.js - инфраструктура запуска;</li>
+    <li>cucumber.js - конфигурация Cucumber.</li>
+  </ul>
+
+  <h3>2.4. Запуск</h3>
+  <pre>npm install
+npx playwright install chromium
+npm run test:bdd</pre>
+
+  <h3>2.5. Фактический результат</h3>
+  <p>По запуску в локальной среде получен результат:</p>
+  <ul>
+    <li>8 scenarios (8 passed)</li>
+    <li>25 steps (25 passed)</li>
+  </ul>
+  <p>Количество сценариев больше количества feature-файлов, потому что Scenario Outline из таблицы Examples разворачивается в несколько отдельных проверок.</p>
+  <p>В логах были предупреждения про deprecated package и moderate vulnerabilities, а также временный ECONNRESET при установке ffmpeg. После повторной попытки установка завершилась успешно, на прохождение тестов это не повлияло.</p>
+
+  <h3>2.6. Блок-схема</h3>
+  <p>Для отчета подготовлена блок-схема в draw.io: LR8_BDD_Блок_схема.drawio. Типы блоков и размеры оформлены по заданным требованиям.</p>
+
+  <h2>3. Выводы</h2>
+  <p>В этой лабораторной работе BDD оказался полезным именно как способ связать требования и автотесты. Сначала фиксируется ожидаемое поведение, затем оно реализуется в шагах и автоматически проверяется.</p>
+  <p>Для практики это удобно: сценарии читаются проще, чем чистый тестовый код, и их легче обсуждать как с преподавателем, так и с "заказчиком" в учебной постановке.</p>
+  <p>По итогам работы все приемочные сценарии успешно автоматизированы и пройдены.</p>
+
+  <h2>4. Контрольные вопросы</h2>
+  <ol>
+    <li><b>Что такое приемочное тестирование и чем оно отличается от системного?</b><br/>Приемочное тестирование подтверждает соответствие бизнес-требованиям, системное проверяет систему целиком на техническом уровне.</li>
+    <li><b>Какие существуют виды приемочного тестирования?</b><br/>Альфа, бета, операционное (OAT), приемка по контракту.</li>
+    <li><b>Что такое критерии приемки?</b><br/>Это условия, которым должна соответствовать система, чтобы считаться принятой.</li>
+    <li><b>В чем идея BDD?</b><br/>Проверять поведение системы через сценарии, понятные всем участникам.</li>
+    <li><b>Связь BDD и TDD?</b><br/>TDD обычно на уровне функций и классов, BDD - на уровне поведения и требований.</li>
+    <li><b>Для чего нужен Gherkin?</b><br/>Для формального и читаемого описания сценариев.</li>
+    <li><b>Структура Given/When/Then/And?</b><br/>Given - контекст, When - действие, Then - ожидаемый результат, And - уточнение.</li>
+    <li><b>Что такое Scenario Outline и Examples?</b><br/>Шаблон сценария с несколькими наборами входных данных.</li>
+    <li><b>Кто основной читатель Gherkin-сценариев?</b><br/>Вся команда: разработчики, тестировщики, аналитики, заказчик.</li>
+    <li><b>Что такое Ubiquitous Language?</b><br/>Единый набор терминов предметной области, одинаково понятный всем участникам.</li>
+    <li><b>Какие BDD-фреймворки знаете?</b><br/>SpecFlow, Behave, pytest-bdd, Cucumber-JVM, JBehave, Cucumber.js.</li>
+    <li><b>Что делают Step Definitions?</b><br/>Связывают текст шагов в feature-файле с исполняемым кодом.</li>
+    <li><b>Почему сценарии полезно писать до реализации?</b><br/>Так заранее фиксируется требуемое поведение и снижается риск неверной реализации.</li>
+    <li><b>Зачем нужен Scenario Outline на практике?</b><br/>Он убирает дублирование и позволяет быстро прогонять наборы тестовых данных.</li>
+    <li><b>Какие сложности у BDD?</b><br/>Нужно поддерживать качество формулировок и синхронизировать шаги при изменениях UI/API.</li>
+  </ol>
+
+  <h2>ПРИЛОЖЕНИЕ А. Листинг Gherkin-сценариев</h2>
+  <p><b>Файл features/auth_login_success.feature</b></p><pre>Feature: Авторизация пользователя
+  Чтобы получить доступ к функциям системы
+  Как зарегистрированный пользователь
+  Я хочу успешно входить в систему
+
+  @positive
+  Scenario: Успешный вход существующего пользователя
+    Given пользователь находится на странице авторизации
+    When пользователь входит с логином &quot;user1&quot; и паролем &quot;User1234&quot;
+    Then система показывает статус &quot;Вы вошли как user1&quot;
+</pre><p><b>Файл features/auth_login_invalid.feature</b></p><pre>Feature: Проверка ошибок авторизации
+  Чтобы защитить систему от неверных попыток входа
+  Как пользователь
+  Я хочу видеть понятное сообщение при неверном пароле
+
+  @negative
+  Scenario: Ошибка входа при неверном пароле
+    Given пользователь находится на странице авторизации
+    When пользователь входит с логином &quot;user1&quot; и паролем &quot;WrongPassword&quot;
+    Then система показывает сообщение входа &quot;Неверный логин или пароль&quot;
+</pre><p><b>Файл features/registration_login.feature</b></p><pre>Feature: Регистрация и последующий вход
+  Чтобы использовать систему с новым аккаунтом
+  Как новый пользователь
+  Я хочу зарегистрироваться и затем войти
+
+  @positive
+  Scenario: Успешная регистрация и вход нового пользователя
+    Given пользователь находится на странице авторизации
+    When пользователь регистрируется с уникальным логином и паролем &quot;Pass1234&quot;
+    And пользователь входит с зарегистрированными данными
+    Then система показывает статус для нового пользователя
+</pre><p><b>Файл features/admin_role_change.feature</b></p><pre>Feature: Управление ролями пользователей
+  Чтобы администратор мог управлять правами доступа
+  Как администратор
+  Я хочу менять роль пользователя
+
+  @positive
+  Scenario: Администратор успешно меняет роль пользователя
+    Given администратор авторизован в системе
+    When администратор меняет роль пользователя &quot;user1&quot; на &quot;admin&quot;
+    Then система показывает сообщение администратора &quot;Роль обновлена&quot;
+</pre><p><b>Файл features/emotion_recognition_outline.feature</b></p><pre>Feature: Распознавание эмоции по изображению
+  Чтобы пользователь видел результат распознавания
+  Как авторизованный пользователь
+  Я хочу загружать изображения и получать эмоцию
+
+  @positive @outline
+  Scenario Outline: Определение эмоции по имени файла
+    Given пользователь &quot;user1&quot; с паролем &quot;User1234&quot; авторизован
+    When пользователь загружает файл &quot;&lt;file_name&gt;&quot; для распознавания эмоции
+    Then система показывает результат эмоции &quot;&lt;emotion&gt;&quot;
+
+    Examples:
+      | file_name        | emotion    |
+      | happy_face.jpg   | радость    |
+      | sad_face.png     | грусть     |
+      | angry_face.jpg   | злость     |
+      | neutral_face.png | нейтрально |
+</pre>
+
+  <h2>ПРИЛОЖЕНИЕ Б. Листинг Step Definitions</h2>
+  <p><b>Файл features/step-definitions/common.steps.js</b></p>
+  <pre>import assert from &quot;assert/strict&quot;;
+import path from &quot;path&quot;;
+import { Given, When, Then } from &quot;@cucumber/cucumber&quot;;
+
+Given(&quot;пользователь находится на странице авторизации&quot;, async function () {
+  await this.page.goto(&quot;/&quot;);
+});
+
+When(
+  &quot;пользователь входит с логином {string} и паролем {string}&quot;,
+  async function (username, password) {
+    await this.page.locator(&quot;#login-username&quot;).fill(username);
+    await this.page.locator(&quot;#login-password&quot;).fill(password);
+    await this.page.locator(&quot;#login-submit&quot;).click();
+  }
+);
+
+Then(&quot;система показывает статус {string}&quot;, async function (expectedText) {
+  const status = this.page.locator(&quot;#user-status&quot;);
+  await status.waitFor({ state: &quot;visible&quot; });
+  const text = (await status.textContent()) || &quot;&quot;;
+  assert.ok(text.includes(expectedText), `Ожидался текст &#x27;${expectedText}&#x27;, получено &#x27;${text}&#x27;`);
+});
+
+Then(&quot;система показывает сообщение входа {string}&quot;, async function (expectedError) {
+  const message = this.page.locator(&quot;#login-msg&quot;);
+  await message.waitFor({ state: &quot;visible&quot; });
+  const text = (await message.textContent()) || &quot;&quot;;
+  assert.ok(text.includes(expectedError), `Ожидалась ошибка &#x27;${expectedError}&#x27;, получено &#x27;${text}&#x27;`);
+});
+
+When(
+  &quot;пользователь регистрируется с уникальным логином и паролем {string}&quot;,
+  async function (password) {
+    const random = Math.random().toString(36).slice(2, 8);
+    const username = `bdd_user_${random}`;
+
+    this.createdUsername = username;
+    this.createdPassword = password;
+
+    await this.page.locator(&quot;#reg-username&quot;).fill(username);
+    await this.page.locator(&quot;#reg-password&quot;).fill(password);
+    await this.page.locator(&quot;#reg-submit&quot;).click();
+
+    const regMsg = this.page.locator(&quot;#reg-msg&quot;);
+    await regMsg.waitFor({ state: &quot;visible&quot; });
+    const regText = (await regMsg.textContent()) || &quot;&quot;;
+    assert.ok(regText.includes(&quot;Регистрация успешна&quot;), `Не удалось зарегистрироваться: &#x27;${regText}&#x27;`);
+  }
+);
+
+When(&quot;пользователь входит с зарегистрированными данными&quot;, async function () {
+  assert.ok(this.createdUsername, &quot;Не сохранен созданный логин&quot;);
+  assert.ok(this.createdPassword, &quot;Не сохранен созданный пароль&quot;);
+
+  await this.page.locator(&quot;#login-username&quot;).fill(this.createdUsername);
+  await this.page.locator(&quot;#login-password&quot;).fill(this.createdPassword);
+  await this.page.locator(&quot;#login-submit&quot;).click();
+});
+
+Then(&quot;система показывает статус для нового пользователя&quot;, async function () {
+  const status = this.page.locator(&quot;#user-status&quot;);
+  await status.waitFor({ state: &quot;visible&quot; });
+  const text = (await status.textContent()) || &quot;&quot;;
+  assert.ok(
+    text.includes(`Вы вошли как ${this.createdUsername}`),
+    `Ожидался пользователь &#x27;${this.createdUsername}&#x27;, получено &#x27;${text}&#x27;`
+  );
+});
+
+Given(&quot;администратор авторизован в системе&quot;, async function () {
+  await this.page.goto(&quot;/&quot;);
+  await this.page.locator(&quot;#login-username&quot;).fill(&quot;admin&quot;);
+  await this.page.locator(&quot;#login-password&quot;).fill(&quot;Admin123&quot;);
+  await this.page.locator(&quot;#login-submit&quot;).click();
+
+  const adminButton = this.page.locator(&quot;#admin-submit&quot;);
+  await adminButton.waitFor({ state: &quot;visible&quot; });
+});
+
+When(
+  &quot;администратор меняет роль пользователя {string} на {string}&quot;,
+  async function (username, role) {
+    await this.page.locator(&quot;#admin-user&quot;).selectOption(username);
+    await this.page.locator(&quot;#admin-role&quot;).selectOption(role);
+    await this.page.locator(&quot;#admin-submit&quot;).click();
+  }
+);
+
+Then(&quot;система показывает сообщение администратора {string}&quot;, async function (expectedText) {
+  const msg = this.page.locator(&quot;#admin-msg&quot;);
+  await msg.waitFor({ state: &quot;visible&quot; });
+  const text = (await msg.textContent()) || &quot;&quot;;
+  assert.ok(text.includes(expectedText), `Ожидалось &#x27;${expectedText}&#x27;, получено &#x27;${text}&#x27;`);
+});
+
+Given(&quot;пользователь {string} с паролем {string} авторизован&quot;, async function (username, password) {
+  await this.page.goto(&quot;/&quot;);
+  await this.page.locator(&quot;#login-username&quot;).fill(username);
+  await this.page.locator(&quot;#login-password&quot;).fill(password);
+  await this.page.locator(&quot;#login-submit&quot;).click();
+
+  const status = this.page.locator(&quot;#user-status&quot;);
+  await status.waitFor({ state: &quot;visible&quot; });
+});
+
+When(&quot;пользователь загружает файл {string} для распознавания эмоции&quot;, async function (fileName) {
+  const filePath = path.resolve(process.cwd(), &quot;tests&quot;, &quot;fixtures&quot;, fileName);
+  await this.page.locator(&quot;#emotion-image&quot;).setInputFiles(filePath);
+  await this.page.locator(&quot;#emotion-submit&quot;).click();
+});
+
+Then(&quot;система показывает результат эмоции {string}&quot;, async function (expectedEmotion) {
+  const msg = this.page.locator(&quot;#emotion-msg&quot;);
+  await msg.waitFor({ state: &quot;visible&quot; });
+  const text = (await msg.textContent()) || &quot;&quot;;
+  assert.ok(
+    text.includes(`Эмоция: ${expectedEmotion}`),
+    `Ожидалась эмоция &#x27;${expectedEmotion}&#x27;, получено &#x27;${text}&#x27;`
+  );
+});
+</pre>
+</body>
+</html>

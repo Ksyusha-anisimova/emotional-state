@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Emotion AI</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="header">
+        <h1>Emotion AI</h1>
+        <p>Минимальное приложение для распознавания эмоционального состояния</p>
+      </header>
+
+      <section class="card" id="auth-section">
+        <div class="grid">
+          <div>
+            <h2>Регистрация</h2>
+            <label>Логин
+              <input id="reg-username" type="text" autocomplete="username" />
+            </label>
+            <label>Пароль
+              <input id="reg-password" type="password" autocomplete="new-password" />
+            </label>
+            <button id="reg-submit">Зарегистрироваться</button>
+            <div class="msg" id="reg-msg"></div>
+          </div>
+          <div>
+            <h2>Вход</h2>
+            <label>Логин
+              <input id="login-username" type="text" autocomplete="username" />
+            </label>
+            <label>Пароль
+              <input id="login-password" type="password" autocomplete="current-password" />
+            </label>
+            <button id="login-submit">Войти</button>
+            <div class="msg" id="login-msg"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card hidden" id="user-section">
+        <h2>Панель пользователя</h2>
+        <div class="status" id="user-status"></div>
+        <button id="logout">Выйти</button>
+
+        <div class="block">
+          <h3>Распознавание эмоции по фото</h3>
+          <label>Выберите изображение (JPG/PNG)
+            <input id="emotion-image" type="file" accept="image/png, image/jpeg" />
+          </label>
+          <button id="emotion-submit">Распознать</button>
+          <div class="msg" id="emotion-msg"></div>
+        </div>
+      </section>
+
+      <section class="card hidden" id="admin-section">
+        <h2>Панель администратора</h2>
+        <div class="block">
+          <label>Пользователь
+            <select id="admin-user"></select>
+          </label>
+          <label>Роль
+            <select id="admin-role">
+              <option value="user">user</option>
+              <option value="admin">admin</option>
+            </select>
+          </label>
+          <button id="admin-submit">Сменить роль</button>
+          <div class="msg" id="admin-msg"></div>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
