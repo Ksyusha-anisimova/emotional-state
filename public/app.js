@@ -51,6 +51,7 @@ const els = {
 
 function setMsg(el, text, isError = false) {
   el.textContent = text;
+  el.classList.toggle("hidden", !text);
   el.style.color = isError ? "#b00020" : "#0a7a2f";
 }
 
@@ -110,7 +111,10 @@ els.loginSubmit.addEventListener("click", async () => {
     setMsg(els.loginMsg, "Вход выполнен");
     await refreshMe();
   } catch (err) {
-    setMsg(els.loginMsg, err.message, true);
+    const errorText = err.message === "Неверный логин или пароль"
+      ? "Неверный логин или пароль"
+      : err.message;
+    setMsg(els.loginMsg, errorText, true);
   }
 });
 
