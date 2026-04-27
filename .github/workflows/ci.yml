@@ -1,6 +1,7 @@
 name: CI
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - "**"
@@ -91,6 +92,19 @@ jobs:
         with:
           name: integration-stage-artifacts
           path: ci-artifacts/integration
+
+      - name: Build artifacts list for report
+        run: |
+          {
+            echo "## Report Job: Artifact List"
+            echo
+            echo "- test-stage-artifacts"
+            echo "- integration-stage-artifacts"
+            echo "- ci-consolidated-artifacts"
+            echo
+            echo "### Downloaded files"
+            find ci-artifacts -type f | sort | sed 's/^/- /'
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload consolidated artifacts
         uses: actions/upload-artifact@v4
