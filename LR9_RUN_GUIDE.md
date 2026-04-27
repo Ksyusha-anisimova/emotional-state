@@ -3,10 +3,10 @@
 ## 1. Что добавлено
 - CI pipeline: `.github/workflows/ci.yml`
 - Security-анализ: `.github/workflows/codeql.yml`
-
-
-
 - Линтинг: `eslint.config.js`
+- 
+- 
+- 
 - Сложность кода: `npm run complexity` (Lizard)
 - Coverage с порогами: `npm run test:coverage` (c8)
 - SonarCloud-конфиг: `sonar-project.properties`
