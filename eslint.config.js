@@ -1,5 +1,6 @@
 import js from "@eslint/js";
 import globals from "globals";
+import tsParser from "@typescript-eslint/parser";
 
 export default [
   {
@@ -30,6 +31,7 @@ export default [
   {
     files: ["tests/**/*.ts", "playwright.config.ts"],
     languageOptions: {
+      parser: tsParser,
       ecmaVersion: "latest",
       sourceType: "module",
       globals: {
